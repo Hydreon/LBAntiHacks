@@ -1,0 +1,12 @@
+# Whether or not to disable antihacks
+lbantihacks: true
+
+# Whether or not the antihacks can
+# be managed by anyone other than OP
+onlyOp: true
+
+# Array of usernames to a whitelist
+users:
+    humerusj
+    williamtdr
+    brandon15811

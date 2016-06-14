@@ -1,0 +1,18 @@
+name: LBAntiHacks
+main: LBAntiHacks\Main
+version: 0.0.1
+api: [1.4.0]
+load:
+author: LBSG
+description: Lifeboat AntiHacks Plugin For All
+website: https://lbsg.net
+commands:
+ lbantihacks:
+  description: "Manages LBAntiHacks"
+  aliases: [ah, antihacks]
+  usage: "/lbantihacks <command> <args>"
+  permission: lbantihacks
+permissions:
+ lbantihacks:
+  default: op
+  description: "Commands that handle all things AntiHacks"
