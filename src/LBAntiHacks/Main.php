@@ -69,7 +69,7 @@ class Main extends PluginBase implements Listener {
         $subcommand = strtolower(array_shift($args));
         switch ($subcommand) {
             default:
-                return true;
+                return false;
         }
     }
 
