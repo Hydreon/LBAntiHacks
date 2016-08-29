@@ -7,6 +7,6 @@ onlyOp: true
 
 # Array of usernames to a whitelist
 users:
-    humerusj
-    williamtdr
-    brandon15811
+- humerusj
+- williamtdr
+- brandon15811
