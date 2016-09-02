@@ -53,12 +53,13 @@ class AntiHackEventListener implements Listener {
 			$maxY = $player->getLevel()->getHighestBlockAt(floor($event->getTo()->getX()), floor($event->getTo()->getZ()));
 			if($event->getTo()->getY() - 5 > $maxY) {
 				$score = ($event->getTo()->getY() - $maxY) / 5;
-				if(isset($this->plugin->hackScore[$player->getId()])){
+				if(isset($this->plugin->hackScore[$player->getId()]) and isset($this->plugin->players[$player->getId()])){
 					$this->plugin->hackScore[$player->getId()]["score"] += $score;
 					if(!isset($this->plugin->hackScore[$player->getId()]["reason"]["Fly"])){
 						$this->plugin->hackScore[$player->getId()]["reason"]["Fly"] = "Fly";
 					}
 				} else{
+					$this->plugin->players[$player->getId()] = $player;
 					$this->plugin->hackScore[$player->getId()] = array();
 					$this->plugin->hackScore[$player->getId()]["score"] = $score;
 					$this->plugin->hackScore[$player->getId()]["integral"] = 0;
@@ -83,12 +84,13 @@ class AntiHackEventListener implements Listener {
 		if($this->flyPlayers[$player->getId()] >= 3){
 			$flyPoint = $this->flyPlayers[$player->getId()];
 			$this->flyPlayers[$player->getId()] = 0;
-			if(isset($this->plugin->hackScore[$player->getId()])){
+			if(isset($this->plugin->hackScore[$player->getId()]) and isset($this->plugin->players[$player->getId()])){
 				$this->plugin->hackScore[$player->getId()]["score"] += $flyPoint;
 				if(!isset($this->plugin->hackScore[$player->getId()]["reason"]["Vertical speed"])){
 					$this->plugin->hackScore[$player->getId()]["reason"]["Vertical speed"] = "Vertical speed";
 				}
 			} else{
+				$this->plugin->players[$player->getId()] = $player;
 				$this->plugin->hackScore[$player->getId()] = array();
 				$this->plugin->hackScore[$player->getId()]["score"] = $flyPoint;
 				$this->plugin->hackScore[$player->getId()]["integral"] = 0;
@@ -104,12 +106,13 @@ class AntiHackEventListener implements Listener {
 		if($this->movePlayers[$player->getId()]["time"] != time()){
 			if(!isset($this->movePlayers[$player->getId()]["freeze"]) || $this->movePlayers[$player->getId()]["freeze"] < 1){
 				if($this->movePlayers[$player->getId()]["distance"] > self::PLAYER_MAX_SPEED * 1.1){
-					if(isset($this->plugin->hackScore[$player->getId()])){
+					if(isset($this->plugin->hackScore[$player->getId()]) and isset($this->plugin->players[$player->getId()])){
 						$this->plugin->hackScore[$player->getId()]["score"] += ($this->movePlayers[$player->getId()]["distance"] - 4) / 4;
 						if(!isset($this->plugin->hackScore[$player->getId()]["reason"]["Speed"])){
 							$this->plugin->hackScore[$player->getId()]["reason"]["Speed"] = "Speed";
 						}
 					} else{
+						$this->plugin->players[$player->getId()] = $player;
 						$this->plugin->hackScore[$player->getId()] = array();
 						$this->plugin->hackScore[$player->getId()]["score"] =($this->movePlayers[$player->getId()]["distance"] - 4) / 4;
 						$this->plugin->hackScore[$player->getId()]["integral"] = 0;
@@ -139,6 +142,7 @@ class AntiHackEventListener implements Listener {
 		unset($this->movePlayers[$player->getId()]);
 		unset($this->flyPlayers[$player->getId()]);
 		unset($this->plugin->hackScore[$player->getId()]);
+		unset($this->plugin->players[$player->getId()]);
 	}
 
 	/**
