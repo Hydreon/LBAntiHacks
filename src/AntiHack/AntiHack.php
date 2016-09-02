@@ -15,6 +15,9 @@ use AntiHack\AntiHackTick;
 class AntiHack {
 	/**@var array*/
 	public $hackScore = array();	
+	
+	public $players = array();	
+	
 	/** @var AntiHack */
 	static private $instance;
 	//protected
